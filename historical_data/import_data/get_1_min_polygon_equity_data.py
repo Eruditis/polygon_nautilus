@@ -117,10 +117,10 @@ async def main():
     stocks_client = StocksClient(get_polygon_key(), use_async=True, read_timeout=120)
 
     try:
-        catalog_path = "C:/Data/Polygon/1_min_bar"
+        catalog_path = "C:/Repos/polygon_nautilus/.data/polygon/1_min_bar"
         catalog = ParquetDataCatalog(catalog_path)
-        start_date = date(2000, 1, 1)
-        end_date = date(2022, 11, 13)
+        start_date = date(2023, 9, 16)
+        end_date = date(2023, 9, 30)
 
         ticker_list = ticker_factory()
         for ticker in ticker_list:
