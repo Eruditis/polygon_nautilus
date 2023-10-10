@@ -6,6 +6,10 @@ __pycache__/
 # C extensions
 *.so
 
+# Data
+.data/
+*.parquet
+
 # Distribution / packaging
 .Python
 build/
@@ -127,3 +131,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+/config.py
+
+# PyCharm
+.idea/
+/historical_data/config.py
+*config.py
