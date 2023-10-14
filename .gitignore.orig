@@ -137,4 +137,7 @@ dmypy.json
 .idea/
 /historical_data/config.py
 *config.py
+<<<<<<< HEAD
 /.pdm-python
+=======
+>>>>>>> 6c6b96b6c543cdb7de845adc18180d6356781827
