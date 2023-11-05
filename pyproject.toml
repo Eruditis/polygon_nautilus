@@ -7,8 +7,7 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = ">=3.9,<3.12"
-nautilus-trader = { git = "https://github.com/nautechsystems/nautilus_trader", branch = "develop" }
-polygon = "^1.1.2"
+nautilus_trader = "^1.178.0"
 black = "^23.9.1"
 flake8 = "^6.1.0"
 

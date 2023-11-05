@@ -18,7 +18,6 @@ from historical_data.import_data.simple_strategy import PrintDataStrategy
 config = BacktestEngineConfig(trader_id="BACKTESTER-1")
 
 engine = BacktestEngine(config)
-
 catalog = ParquetDataCatalog("/workspaces/data")
 instruments = catalog.instruments(as_nautilus=True)
 status = []

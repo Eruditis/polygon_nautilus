@@ -4,6 +4,7 @@ class across the repo to pull data from
 polygon.
 """
 import logging
+import pytz
 import pandas as pd
 from datetime import datetime, timezone
 from polygon import StocksClient
@@ -235,7 +236,7 @@ class PolygonEquityData:
             ts = int(ts / 1000000000)
         else:
             raise TypeError(f"timestamp length {len(str(ts))} was not 13 or 19")
-        return datetime.utcfromtimestamp(ts)
+        return pytz.UTC.localize(datetime.utcfromtimestamp(ts))
 
     def read_catalog_instruments(self, **kwargs):
         """read instruments from catalog"""

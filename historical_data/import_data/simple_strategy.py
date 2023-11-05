@@ -20,6 +20,7 @@ class PrintDataStrategy(Strategy):
         self.subscribe_instrument_status(self.instrument.id)
 
     def on_bar(self, bar: Bar) -> None:
+        return
         self.log.info(repr(bar))
 
     def on_instrument_status(self, status):

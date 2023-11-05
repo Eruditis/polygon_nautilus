@@ -1,3 +1,7 @@
+"""
+Usage:
+python historical_data/import_data/get_polygon_equity_data.py
+"""
 import config
 from datetime import date
 import logging

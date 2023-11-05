@@ -4,7 +4,9 @@ python historical_data/import_data/parse_markethours.py
 """
 import pathlib
 import logging
-from datetime import datetime
+import pytz
+from datetime import time
+from datetime import datetime as dt
 import pandas as pd
 from nautilus_trader.core.datetime import dt_to_unix_nanos
 from nautilus_trader.model.data import InstrumentStatus
@@ -27,49 +29,84 @@ def parse_markethours(markethours_file, instrument):
     df_hours = pd.read_csv(markethours_file)
     status = []
     for _, row in df_hours.iterrows():
-        if "-" in row["Trading Hours"]:
-            times = row["Trading Hours"].split("-")
-            start = times[0]
-            end = times[1]
-            start_unix = dt_to_unix_nanos(datetime.strptime(start, "%Y%m%d:%H%M"))
-            end_unix = dt_to_unix_nanos(datetime.strptime(end, "%Y%m%d:%H%M"))
+        if "CLOSED" in row["Trading Hours"]:
+            continue
+        times = row["Trading Hours"].split("-")
+        est = pytz.timezone("US/Eastern")
+        start_regular = est.localize(dt.strptime(times[0], "%Y%m%d:%H%M"))
+        end_regular = est.localize(dt.strptime(times[1], "%Y%m%d:%H%M"))
+        times = row["Liquid Hours"].split("-")
+        start_liquid = est.localize(dt.strptime(times[0], "%Y%m%d:%H%M"))
+        end_liquid = est.localize(dt.strptime(times[1], "%Y%m%d:%H%M"))
+        if (
+            start_regular.time() == time(4, 0)
+            and end_regular.time() == time(20, 0)
+            and start_liquid.time() == time(9, 30)
+            and end_liquid.time() == time(16, 0)
+        ):
             status.append(
                 InstrumentStatus(
                     instrument_id=instrument.id,
                     status=MarketStatus.PRE_OPEN,
-                    ts_event=start_unix,
-                    ts_init=start_unix,
+                    ts_event=dt_to_unix_nanos(start_regular.replace(hour=2, minute=30)),
+                    ts_init=dt_to_unix_nanos(start_regular.replace(hour=2, minute=30)),
+                    trading_session="NYSE Arca Early Trading",
+                )
+            )
+            status.append(
+                InstrumentStatus(
+                    instrument_id=instrument.id,
+                    status=MarketStatus.OPEN,
+                    ts_event=dt_to_unix_nanos(start_regular),
+                    ts_init=dt_to_unix_nanos(start_regular),
+                    trading_session="NYSE Arca Early Trading",
                 )
             )
             status.append(
                 InstrumentStatus(
                     instrument_id=instrument.id,
                     status=MarketStatus.CLOSED,
-                    ts_event=end_unix,
-                    ts_init=end_unix,
+                    ts_event=dt_to_unix_nanos(start_liquid) - 1,
+                    ts_init=dt_to_unix_nanos(start_liquid) - 1,
+                    trading_session="NYSE Arca Early Trading",
                 )
             )
 
-        if "-" in row["Liquid Hours"]:
-            times = row["Liquid Hours"].split("-")
-            start = times[0]
-            end = times[1]
-            start_unix = dt_to_unix_nanos(datetime.strptime(start, "%Y%m%d:%H%M"))
-            end_unix = dt_to_unix_nanos(datetime.strptime(end, "%Y%m%d:%H%M"))
             status.append(
                 InstrumentStatus(
                     instrument_id=instrument.id,
                     status=MarketStatus.OPEN,
-                    ts_event=start_unix,
-                    ts_init=start_unix,
+                    ts_event=dt_to_unix_nanos(start_liquid),
+                    ts_init=dt_to_unix_nanos(start_liquid),
+                    trading_session="NYSE American Core Trading",
                 )
             )
             status.append(
                 InstrumentStatus(
                     instrument_id=instrument.id,
-                    status=MarketStatus.PRE_CLOSE,
-                    ts_event=end_unix,
-                    ts_init=end_unix,
+                    status=MarketStatus.CLOSED,
+                    ts_event=dt_to_unix_nanos(end_liquid) - 1,
+                    ts_init=dt_to_unix_nanos(end_liquid) - 1,
+                    trading_session="NYSE American Core Trading",
+                )
+            )
+
+            status.append(
+                InstrumentStatus(
+                    instrument_id=instrument.id,
+                    status=MarketStatus.OPEN,
+                    ts_event=dt_to_unix_nanos(end_liquid),
+                    ts_init=dt_to_unix_nanos(end_liquid),
+                    trading_session="NYSE American Late Trading",
+                )
+            )
+            status.append(
+                InstrumentStatus(
+                    instrument_id=instrument.id,
+                    status=MarketStatus.CLOSED,
+                    ts_event=dt_to_unix_nanos(end_regular),
+                    ts_init=dt_to_unix_nanos(end_regular),
+                    trading_session="NYSE American Late Trading",
                 )
             )
     return status
