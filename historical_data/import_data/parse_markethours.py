@@ -114,7 +114,7 @@ def parse_markethours(markethours_file, instrument):
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
-    poly = PolygonEquityData(None, None, "/workspaces/data")
+    poly = PolygonEquityData(None, None, "data")
     instrument = poly.read_catalog_instruments(instrument_ids="QQQ")[0]
     filepath = pathlib.Path(__file__).parent.joinpath("MarketHours.csv")
     status = parse_markethours(filepath, instrument)
