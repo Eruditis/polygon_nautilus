@@ -6,11 +6,11 @@ authors = ["Your Name <you@example.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = ">=3.9,<3.12"
-nautilus_trader = {path = "/home/codespace/nautilus_trader"}
+python = ">=3.10,<3.12"
 polygon = "^1.1.2"
 black = "^23.9.1"
 flake8 = "^6.1.0"
+nautilus-trader = "^1.180.0"
 
 
 [build-system]
