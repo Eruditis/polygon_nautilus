@@ -36,15 +36,15 @@ def main():
         nautilus_status.append(InstrumentStatus(
             instrument_id=instrument.id,
             status=[x for x in list(MarketStatus) if x.name==session['gte']['status']][0],
-            ts_event=datetime.timestamp(session_start),
-            ts_init=datetime.timestamp(session_start),
+            ts_event=datetime.timestamp(session_start) * 1e9,
+            ts_init=datetime.timestamp(session_start) * 1e9,
             trading_session=session['session']
         ))
         nautilus_status.append(InstrumentStatus(
             instrument_id=instrument.id,
             status=[x for x in list(MarketStatus) if x.name==session['lt']['status']][0],
-            ts_event=datetime.timestamp(session_end),
-            ts_init=datetime.timestamp(session_end),
+            ts_event=datetime.timestamp(session_end) * 1e9,
+            ts_init=datetime.timestamp(session_end) * 1e9,
             trading_session=session['session']
         ))
     catalog.write_data(nautilus_status)
