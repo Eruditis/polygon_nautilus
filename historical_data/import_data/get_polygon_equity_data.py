@@ -11,9 +11,9 @@ from nautilus_trader.model.data import Bar
 
 logging.basicConfig(level=logging.INFO)
 # test PolygonEquityData class
-poly = PolygonEquityData(config, ["QQQ"], "/workspaces/data")
+poly = PolygonEquityData(config, ["QQQ"], "nautilus_catalog")
 poly.get_tickers()
-poly.get_bar_data_for_tickers(date(2023, 9, 16), date(2023, 9, 30))
+poly.get_bar_data_for_tickers(date(2022, 1, 1), date(2023, 9, 30))
 
 # read from catalog data
 bars = poly.read_catalog_bars()
