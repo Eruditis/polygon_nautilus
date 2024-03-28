@@ -18,7 +18,7 @@ from historical_data.import_data.simple_strategy import PrintDataStrategy
 config = BacktestEngineConfig(trader_id="BACKTESTER-1")
 
 engine = BacktestEngine(config)
-catalog = ParquetDataCatalog("/workspaces/data")
+catalog = ParquetDataCatalog("C:\Repos\polygon_nautilus\.data")
 instruments = catalog.instruments(as_nautilus=True)
 status = []
 engine.add_venue(
