@@ -136,3 +136,6 @@ dmypy.json
 /historical_data/config.py
 *config.py
 /.pdm-python
+.data/
+nautilus_catalog/
+sessions_data/
