@@ -4,8 +4,7 @@
 [![GitHub last commit](https://img.shields.io/github/last-commit/MarketMakerLite/polygon)](https://github.com/MarketMakerLite/polygon/commits/main)
 [![Discord](https://img.shields.io/discord/837528551028817930?color=%237289DA&label=Discord)](https://discord.gg/jjDcZcqXWy)
 
-A repository of code that interacts with the [Polygon API by pssolanki111](https://github.com/pssolanki111/polygon)
-This is a fork of the [MarketMakerLite wrapper repository](https://github.com/MarketMakerLite/polygon), which has been modified/extended to aid users of NautilusTrader.
+A repository of code that interacts with the [Polygon API by pssolanki111](https://github.com/pssolanki111/polygon). This is a fork of the [MarketMakerLite wrapper repository](https://github.com/MarketMakerLite/polygon), which has been modified/extended to aid users of NautilusTrader.
 
 
 ## Websockets
