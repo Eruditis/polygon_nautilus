@@ -11,6 +11,9 @@ nautilus_trader = "^1.190.0"
 black = "^23.9.1"
 flake8 = "^6.1.0"
 polygon = "^1.1.2"  # https://github.com/pssolanki111/polygon
+pandas-market-calendars = "^4.4.0"
+cachetools = "^5.3.3"
+prefect = "^2.17.1"
 
 
 [build-system]
