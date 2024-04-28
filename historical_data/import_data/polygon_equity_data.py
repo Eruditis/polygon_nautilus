@@ -11,7 +11,7 @@ from polygon import StocksClient
 from polygon import ReferenceClient
 from nautilus_trader.model.currencies import USD
 from nautilus_trader.persistence.wranglers import BarDataWrangler
-from nautilus_trader.model.data.bar import BarType, BarSpecification
+from nautilus_trader.model.data import BarType, BarSpecification
 from nautilus_trader.model.enums import (
     AggregationSource,
     BarAggregation,
@@ -210,7 +210,6 @@ class PolygonEquityData:
             currency=currency,
             price_precision=2,
             price_increment=Price.from_str("0.01"),
-            multiplier=Quantity.from_int(1),
             lot_size=Quantity.from_int(1),
             isin=cik,
             ts_event=0,
